@@ -245,15 +245,15 @@ a{ color:inherit; }
 .booking-detail{ max-width:54ch; margin:0 auto 2.5rem; color:var(--plum-soft); }
 .contact-card{
   display:inline-flex; flex-direction:column; gap:1rem;
-  background:var(--cream);
+  background:var(--plum);
   padding:2rem clamp(1.5rem,4vw,3rem);
-  box-shadow:0 8px 32px -12px rgba(56,37,71,0.12);
+  box-shadow:0 8px 32px -12px rgba(56,37,71,0.3);
 }
-.contact-line{ display:flex; align-items:center; justify-content:center; gap:.75rem; font-size:1.15rem; }
-.contact-line a{ color:var(--plum); text-decoration:none; font-weight:500; border-bottom:1.5px solid var(--coral); padding-bottom:1px; }
-.contact-line a:hover{ color:var(--coral); }
-.contact-icon{ color:var(--coral); }
-.price-note{ font-size:.95rem; color:var(--plum-soft); margin-top:1.5rem; }
+.contact-line{ display:flex; align-items:center; justify-content:center; gap:.75rem; font-size:1.15rem; color:var(--cream); }
+.contact-line a{ color:var(--coral); text-decoration:none; font-weight:500; border-bottom:1.5px solid var(--coral); padding-bottom:1px; }
+.contact-line a:hover{ color:#fff; border-color:#fff; }
+.contact-icon{ color:var(--cream); }
+.price-note{ font-size:.95rem; color:rgba(247,244,234,.65); margin-top:1.5rem; }
 /* override .section.fill colours that no longer apply here */
 #rdv{ background:#fff; color:var(--plum); }
 #rdv .eyebrow{ color:var(--coral); }
