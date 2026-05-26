@@ -1,0 +1,533 @@
+
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Méthode Rosen — Nora Römer · Praticienne à Bruxelles</title>
+<meta name="description" content="La Méthode Rosen est une pratique psychocorporelle qui fait le lien entre le corps et les émotions. Séances avec Nora Römer, praticienne certifiée à Forest, Bruxelles.">
+
+<!-- Open Graph -->
+<meta property="og:type" content="website">
+<meta property="og:locale" content="fr_BE">
+<meta property="og:title" content="Méthode Rosen — Nora Römer">
+<meta property="og:description" content="Prendre conscience de ce que notre corps sait déjà. Une pratique psychocorporelle par le toucher et le ressenti.">
+
+<!-- Fonts: Fraunces (display serif) + Work Sans (body) -->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,500;0,9..144,600;1,9..144,400&family=Work+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+
+<style>
+/* ============================================================
+   BRAND SYSTEM
+   Cream = canvas · Plum = structure & text · Coral = "do this"
+   ============================================================ */
+:root{
+  --cream:    #F7F4EA;
+  --plum:     #382547;
+  --coral:    #FF8C61;
+  --plum-soft:#5a4668;
+  --cream-2:  #EFE9D8;
+  --coral-dim:#e9805a;
+
+  --font-display: "Fraunces", "Newsreader", Georgia, serif;
+  --font-body: "Work Sans", system-ui, sans-serif;
+
+  --maxw: 1180px;
+  --gap: clamp(2rem, 5vw, 5rem);
+  --section-pad: clamp(4.5rem, 10vw, 9rem);
+}
+
+*{ box-sizing:border-box; margin:0; padding:0; }
+
+html{ scroll-behavior:smooth; }
+@media (prefers-reduced-motion: reduce){
+  html{ scroll-behavior:auto; }
+  *{ animation:none !important; transition:none !important; }
+}
+
+body{
+  font-family:var(--font-body);
+  background:var(--cream);
+  color:var(--plum);
+  line-height:1.7;
+  font-weight:400;
+  -webkit-font-smoothing:antialiased;
+  font-size:clamp(1rem, 0.6vw + 0.9rem, 1.125rem);
+}
+
+h1,h2,h3{ font-family:var(--font-display); font-weight:500; line-height:1.12; letter-spacing:-0.01em; }
+
+.container{ width:100%; max-width:var(--maxw); margin-inline:auto; padding-inline:clamp(1.25rem, 5vw, 3rem); }
+
+a{ color:inherit; }
+
+/* ---------- NAV ---------- */
+.nav{
+  position:fixed; top:0; z-index:50;
+  display:flex; align-items:center; justify-content:space-between;
+  gap:1.5rem;
+  padding:0.65rem clamp(1.25rem, 5vw, 3rem);
+  background:rgba(247,244,234,0.92);
+  backdrop-filter:blur(10px);
+  box-shadow:0 1px 0 rgba(56,37,71,0.08);
+  width:100%;
+  opacity:0; transform:translateY(-100%); pointer-events:none;
+  transition:opacity .4s ease, transform .4s ease;
+}
+.nav.visible{
+  opacity:1; transform:translateY(0); pointer-events:auto;
+}
+.logo-slot{
+  display:flex; align-items:center;
+  text-decoration:none;
+}
+.logo-slot img{
+  height:40px; width:auto; display:block;
+}
+.nav-links{ display:flex; align-items:center; gap:clamp(1rem,2.5vw,2.25rem); list-style:none; }
+.nav-links a{
+  text-decoration:none; font-size:.95rem; font-weight:500; color:var(--plum);
+  position:relative; padding-block:.25rem;
+}
+.nav-links a::after{
+  content:""; position:absolute; left:0; bottom:-2px; height:1.5px; width:0;
+  background:var(--coral); transition:width .3s ease;
+}
+.nav-links a:hover::after,
+.nav-links a.active::after{ width:100%; }
+
+.btn{
+  display:inline-flex; align-items:center; gap:.5rem;
+  font-family:var(--font-body); font-size:.95rem; font-weight:500;
+  padding:.7rem 1.4rem; border-radius:0; text-decoration:none;
+  cursor:pointer; border:1.5px solid transparent; transition:all .25s ease;
+  white-space:nowrap;
+}
+.btn-primary{ background:var(--coral); color:#fff; }
+.btn-primary:hover{ background:var(--coral-dim); transform:translateY(-1px); }
+.btn-ghost{ background:transparent; color:var(--plum); border-color:var(--plum); }
+.btn-ghost:hover{ background:var(--plum); color:var(--cream); }
+.nav .btn-primary{ box-shadow:0 6px 18px rgba(255,140,97,0.28); }
+
+.nav-toggle{ display:none; }
+
+/* ---------- HERO ---------- */
+.hero{
+  position:relative; min-height:88vh;
+  display:flex; align-items:center;
+  padding:var(--section-pad) 0;
+  overflow:hidden;
+}
+.hero-bg{
+  position:absolute; inset:0; z-index:0;
+  background-image: url('mpmqjj7x-hero.jpg');
+  background-size:cover; background-position:center;
+}
+.hero .container{ position:relative; z-index:2; display:flex; flex-direction:column; align-items:center; }
+.hero-panel{
+  background:var(--cream); color:var(--plum);
+  padding:clamp(2.5rem, 5vw, 4.5rem);
+  max-width:800px;
+  margin-inline:auto;
+  box-shadow:0 30px 80px -20px rgba(56,37,71,0.35);
+  text-align:center;
+}
+.hero-panel h1{
+  font-size:clamp(2rem, 4.5vw, 3.4rem);
+  margin-bottom:1.25rem;
+  font-weight:500;
+}
+.hero-panel p{ font-size:1.075rem; color:var(--plum-soft); margin-bottom:2rem; max-width:52ch; margin-inline:auto; }
+.hero-actions{ display:flex; flex-wrap:wrap; gap:.9rem; justify-content:center; }
+.hero .btn-ghost{ color:var(--plum); border-color:rgba(56,37,71,.35); }
+.hero .btn-ghost:hover{ background:var(--plum); color:var(--cream); border-color:var(--plum); }
+.scroll-cue{
+  position:absolute; left:50%; bottom:1.75rem; transform:translateX(-50%);
+  z-index:2; color:var(--coral); animation:bob 2.4s ease-in-out infinite;
+}
+@keyframes bob{ 0%,100%{ transform:translate(-50%,0); } 50%{ transform:translate(-50%,8px); } }
+
+/* ---------- SECTION SHELL ---------- */
+.section{ padding:var(--section-pad) 0; }
+.section.tint{ background:var(--cream-2); }
+.section.fill{ background:var(--plum); color:var(--cream); }
+.section.fill h2, .section.fill h3{ color:var(--cream); }
+
+.eyebrow{
+  font-family:var(--font-body); font-size:.78rem; font-weight:600;
+  letter-spacing:.16em; text-transform:uppercase; color:var(--coral);
+  margin-bottom:1rem; display:block;
+}
+.section-title{ font-size:clamp(1.7rem, 3.4vw, 2.6rem); margin-bottom:1.5rem; max-width:18ch; }
+
+/* alternating two-column rows — photo 60%, text 40% */
+.row{
+  display:grid; grid-template-columns:2fr 3fr;
+  gap:var(--gap); align-items:center;
+}
+.row.reverse{ grid-template-columns:3fr 2fr; }
+.row.reverse .col-media{ order:-1; }
+.row .prose p{ margin-bottom:1.1rem; max-width:60ch; }
+.row .prose p:last-child{ margin-bottom:0; }
+
+/* image placeholders */
+.media{
+  position:relative; width:100%; overflow:hidden;
+  background:var(--cream-2);
+  border:1px solid rgba(56,37,71,0.08);
+  aspect-ratio:4 / 5;
+  display:grid; place-items:center;
+}
+.media.wide{ aspect-ratio:4 / 3; }
+.media::before{
+  content:""; position:absolute; inset:0;
+  background:radial-gradient(100% 100% at 30% 20%, rgba(255,140,97,.10), transparent 60%),
+             linear-gradient(135deg, rgba(56,37,71,.05), rgba(56,37,71,0));
+}
+.media .ph-label{
+  position:relative; z-index:1; text-align:center;
+  font-family:var(--font-body); font-size:.82rem; letter-spacing:.04em;
+  color:var(--plum-soft); padding:1rem 1.5rem; max-width:24ch;
+}
+.media .ph-label small{ display:block; opacity:.6; margin-top:.35rem; font-size:.72rem; letter-spacing:.1em; text-transform:uppercase; }
+
+/* recognition quote cards — 3-column grid below the two-column row */
+.quotes-grid{
+  display:grid; grid-template-columns:repeat(3,1fr);
+  gap:1.25rem; margin-top:clamp(2.5rem,5vw,4rem);
+}
+.quote-card{
+  background:var(--cream-2); padding:1.5rem 1.6rem;
+  border-left:3px solid var(--coral);
+  box-shadow:0 8px 24px -16px rgba(56,37,71,0.4);
+}
+.quote-card .q{ font-family:var(--font-display); font-style:italic; font-size:1.1rem; color:var(--plum); margin-bottom:.45rem; }
+.quote-card .q-sub{ font-size:.95rem; color:var(--plum-soft); }
+.closure{
+  margin-top:2.25rem; font-size:1.15rem;
+  font-family:var(--font-display); font-style:italic;
+  text-align:center;
+}
+@media (max-width:820px){
+  .quotes-grid{ grid-template-columns:1fr; }
+}
+
+/* ---------- EN PRATIQUE — single centered column ---------- */
+#pratique .row{
+  display:block;
+  max-width:680px;
+  margin-inline:auto;
+  text-align:center;
+}
+#pratique .col-media{ display:none; }
+#pratique .prose p{ max-width:none; }
+#pratique .section-title{ max-width:none; }
+
+/* ---------- OVERLAY PANEL (rdv + footer slide on top) ---------- */
+.overlay-panel{
+  position:relative; z-index:10;
+  /* casts a shadow upward so it reads as a sheet lifting over the content below */
+  box-shadow:0 -32px 64px -16px rgba(56,37,71,0.13);
+  /* entrance animation: panel starts 56px below and fades in */
+  transform:translateY(56px); opacity:0;
+  transition:transform .8s cubic-bezier(.22,.68,0,1.1), opacity .65s ease;
+}
+.overlay-panel.revealed{ transform:translateY(0); opacity:1; }
+@media (prefers-reduced-motion: reduce){
+  .overlay-panel{ transform:none; opacity:1; }
+}
+
+/* ---------- BOOKING ---------- */
+.booking{ background:#fff; text-align:center; }
+.booking .section-title{ margin-inline:auto; max-width:none; color:var(--plum); }
+.booking-detail{ max-width:54ch; margin:0 auto 2.5rem; color:var(--plum-soft); }
+.contact-card{
+  display:inline-flex; flex-direction:column; gap:1rem;
+  background:var(--cream);
+  padding:2rem clamp(1.5rem,4vw,3rem);
+  box-shadow:0 8px 32px -12px rgba(56,37,71,0.12);
+}
+.contact-line{ display:flex; align-items:center; justify-content:center; gap:.75rem; font-size:1.15rem; }
+.contact-line a{ color:var(--plum); text-decoration:none; font-weight:500; border-bottom:1.5px solid var(--coral); padding-bottom:1px; }
+.contact-line a:hover{ color:var(--coral); }
+.contact-icon{ color:var(--coral); }
+.price-note{ font-size:.95rem; color:var(--plum-soft); margin-top:1.5rem; }
+/* override .section.fill colours that no longer apply here */
+#rdv{ background:#fff; color:var(--plum); }
+#rdv .eyebrow{ color:var(--coral); }
+
+/* ---------- FOOTER ---------- */
+.footer{ background:#fff; color:var(--plum); padding:clamp(3rem,6vw,4.5rem) 0; border-top:1px solid var(--border,var(--cream-2)); }
+.footer .container{ display:flex; flex-wrap:wrap; justify-content:space-between; gap:2rem; }
+.footer h3{ font-size:1.4rem; margin-bottom:.5rem; color:var(--plum); }
+.footer a{ color:var(--plum); }
+.footer .f-contact a{ text-decoration:none; border-bottom:1px solid rgba(56,37,71,.2); }
+.footer .f-contact a:hover{ border-color:var(--coral); color:var(--coral); }
+.footer .f-link a{ color:var(--coral); text-decoration:none; font-weight:500; }
+.footer .f-link a:hover{ text-decoration:underline; }
+.footer p{ color:var(--plum-soft); font-size:.95rem; line-height:1.9; }
+
+/* ---------- RESPONSIVE ---------- */
+@media (max-width:820px){
+  .nav-links{
+    position:fixed; inset:0 0 auto 0; top:0; flex-direction:column;
+    background:var(--cream); padding:5.5rem 2rem 2rem; gap:1.5rem;
+    transform:translateY(-100%); transition:transform .35s ease; box-shadow:0 10px 30px rgba(56,37,71,.15);
+    align-items:flex-start;
+  }
+  .nav-links.open{ transform:translateY(0); }
+  .nav-toggle{
+    display:grid; place-items:center; width:42px; height:42px; z-index:60;
+    background:none; border:none; cursor:pointer; color:var(--plum);
+  }
+  .nav .btn-primary{ display:none; }
+  .nav-links .btn-primary{ display:inline-flex; }
+
+  .row{ grid-template-columns:1fr; gap:2rem; }
+  .row.reverse{ grid-template-columns:1fr; }
+  .row.reverse .col-media{ order:0; }
+  .row .col-media{ order:-1; }
+  .media{ aspect-ratio:4 / 3; }
+
+  .footer .container{ flex-direction:column; }
+}
+</style>
+</head>
+<body>
+
+<!-- ============ NAV ============ -->
+<nav class="nav" id="nav">
+  <a href="#accueil" class="logo-slot" aria-label="Accueil — Nora Römer, Méthode Rosen">
+    <img src="mpmp7v4z-logo-site.png" alt="Nora Römer — Méthode Rosen">
+  </a>
+
+  <button class="nav-toggle" id="navToggle" aria-label="Ouvrir le menu" aria-expanded="false">
+    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/></svg>
+  </button>
+
+  <ul class="nav-links" id="navLinks">
+    <li><a href="#methode">La méthode</a></li>
+    <li><a href="#pratique">En pratique</a></li>
+    <li><a href="#apropos">À propos</a></li>
+    <li><a href="#rdv" class="btn btn-primary">Prendre rendez-vous</a></li>
+  </ul>
+</nav>
+
+<!-- ============ HERO ============ -->
+<header class="hero" id="accueil">
+  <div class="hero-bg" role="img" aria-label="Photo de forêt en arrière-plan"></div>
+  <div class="container">
+    <div class="hero-panel">
+      <img src="mpmp7v4z-logo-site.png" alt="Nora Römer — Méthode Rosen" style="height:56px;width:auto;display:block;margin:0 auto 1.5rem;">
+      <h1>Prendre conscience de ce que notre corps sait déjà.</h1>
+      <p>La Méthode Rosen est une pratique psychocorporelle qui fait le lien entre le corps et les émotions. Par le toucher et le ressenti, elle révèle nos tensions musculaires et les schémas qui se cachent derrière.</p>
+      <div class="hero-actions">
+        <a href="#rdv" class="btn btn-primary">Prendre rendez-vous</a>
+        <a href="#methode" class="btn btn-ghost">En savoir plus</a>
+      </div>
+    </div>
+  </div>
+  <a href="#methode" class="scroll-cue" aria-label="Défiler vers le bas">
+    <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="12" y1="5" x2="12" y2="19"/><polyline points="19 12 12 19 5 12"/></svg>
+  </a>
+</header>
+
+<main>
+
+<!-- ============ LA MÉTHODE ROSEN ============ -->
+<section class="section" id="methode">
+  <div class="container">
+    <div class="row">
+      <div class="col-text prose">
+        <span class="eyebrow">La Méthode Rosen</span>
+        <h2 class="section-title">Ce que le corps porte, le corps peut le libérer.</h2>
+        <p>La Méthode Rosen part d'un constat simple : nos tensions musculaires ne sont pas que physiques. Elles portent nos émotions enfouies, ce que nous n'avons pas pu exprimer. Au fil de notre histoire, le corps développe des stratégies pour faire face — des tensions chroniques s'installent pour nous protéger, pour contrôler, ou simplement pour tenir.</p>
+        <p>Par un toucher doux et bienveillant, la Méthode Rosen crée un espace sécurisant où le corps peut, enfin, se laisser aller. La détente profonde des muscles, des fascias et de la respiration permet de relâcher ce qui était retenu — et d'éveiller une conscience plus juste de qui nous sommes vraiment.</p>
+        <p>La méthode agit sur les plans métabolique, émotionnel, comportemental et mental.</p>
+      </div>
+      <div class="col-media">
+        <div class="media" style="background:none;border:none;">
+          <img src="mpmsrpdb-methode.jpg" alt="Mains en travail sur un corps — Méthode Rosen" style="width:100%;height:100%;object-fit:cover;display:block;">
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ À QUI S'ADRESSE LA MÉTHODE ============ -->
+<section class="section" id="aqui">
+  <div class="container">
+    <div class="row reverse">
+      <div class="col-text prose">
+        <span class="eyebrow">À qui s'adresse la méthode</span>
+        <h2 class="section-title">Peut-être vous reconnaissez-vous ici…</h2>
+        <p>Vous ressentez un mal-être difficile à nommer. Vos émotions semblent inaccessibles, ou au contraire débordantes. Peut-être traversez-vous un burn-out, une anxiété persistante, ou répétez-vous les mêmes schémas sans comprendre pourquoi. Peut-être avez-vous l'impression d'être coupé(e) de votre corps — et que la parole seule ne suffit plus.</p>
+      </div>
+      <div class="col-media">
+        <div class="media" style="background:none;border:none;">
+          <img src="mpmsrpdb-methode.jpg" alt="Corps en séance — Méthode Rosen" style="width:100%;height:100%;object-fit:cover;display:block;">
+        </div>
+      </div>
+    </div>
+
+    <div class="quotes-grid">
+      <div class="quote-card">
+        <div class="q">« Je vis dans ma tête. »</div>
+        <div class="q-sub">Vous analysez, vous comprenez, mais quelque chose reste bloqué. Le corps est là, mais lointain.</div>
+      </div>
+      <div class="quote-card">
+        <div class="q">« Je sens que quelque chose se répète. »</div>
+        <div class="q-sub">Des relations, des situations, des réactions… Un schéma que vous voyez, sans pouvoir le changer.</div>
+      </div>
+      <div class="quote-card">
+        <div class="q">« J'ai mal, sans vraiment savoir pourquoi. »</div>
+        <div class="q-sub">Des tensions, des douleurs chroniques — un corps qui parle dans une langue que vous n'arrivez pas encore à déchiffrer.</div>
+      </div>
+    </div>
+
+    <p class="closure">La Méthode Rosen s'adresse à celles et ceux qui sentent qu'il est temps d'écouter autrement.</p>
+  </div>
+</section>
+
+<!-- ============ CONCRÈTEMENT, UNE SÉANCE ============ -->
+<section class="section" id="pratique">
+  <div class="container">
+    <div class="row">
+      <div class="col-text prose">
+        <span class="eyebrow">En pratique</span>
+        <h2 class="section-title">Un espace pour se poser, vraiment.</h2>
+        <p>Vous êtes allongé(e) sur une table de massage, couvert(e) d'un drap, dans un cadre confidentiel et bienveillant. Le drap est écarté uniquement dans les zones travaillées.</p>
+        <p>Mon travail consiste à aller à la rencontre de vos tensions musculaires — guidé(e) par la lecture du corps, l'observation de la respiration et l'échange avec vous. Ce toucher attentif accompagne la prise de conscience de ce qui se passe en vous, à votre propre rythme.</p>
+        <p>Cette présence douce et sans jugement permet parfois la transformation de ce que l'on croyait immuable.</p>
+      </div>
+      <div class="col-media">
+        <div class="media wide" style="background:none;border:none;">
+          <img src="mpmsrpdb-methode.jpg" alt="Cabinet — Méthode Rosen" style="width:100%;height:100%;object-fit:cover;display:block;">
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ À PROPOS — NORA ============ -->
+<section class="section tint" id="apropos">
+  <div class="container">
+    <div class="row reverse">
+      <div class="col-text prose">
+        <span class="eyebrow">À propos</span>
+        <h2 class="section-title">Qui suis-je ?</h2>
+        <p>Je m'appelle Nora. La Méthode Rosen m'accompagne depuis de longues années — d'abord comme pratique personnelle, avant de devenir une vocation.</p>
+        <p>Me sentant limitée par la thérapie cognitive, je me suis tournée vers le travail corporel. Ce chemin a provoqué en moi des évolutions profondes : plus de bien-être, de confiance en moi, de bienveillance envers moi-même. Ce que je croyais être une démarche de soin personnel est devenu, au fil des formations, un nouveau métier. J'ai alors décidé de lancer ma pratique en cabinet en tant que praticienne certifiée.</p>
+        <p>Parallèlement, j'ai co-fondé l'Institut Méthode Rosen Belgique avec Anne Closset, avec pour mission de transmettre cette approche et de la démocratiser en Belgique.</p>
+      </div>
+      <div class="col-media">
+        <div class="media" style="background:none;border:none;">
+          <img src="mpmsvlsd-nora.jpeg" alt="Portrait de Nora Römer" style="width:100%;height:100%;object-fit:cover;display:block;">
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ OVERLAY PANEL: rdv + footer slide on top of #apropos ============ -->
+<div class="overlay-panel" id="overlayPanel">
+
+<!-- ============ PRENDRE RENDEZ-VOUS ============ -->
+<section class="section booking" id="rdv">
+  <div class="container">
+    <span class="eyebrow">Prendre rendez-vous</span>
+    <h2 class="section-title">Envie de faire un premier pas ?</h2>
+    <p class="booking-detail">Mon cabinet est installé à Forest, Bruxelles. Les séances se font en français, en anglais ou en allemand, et durent 1h30 dans leur ensemble. Le tarif est de 50 ou 60 € selon les possibilités financières de chacun(e) — parce que ce travail doit rester accessible.</p>
+
+    <div class="contact-card">
+      <div class="contact-line">
+        <span class="contact-icon" aria-hidden="true">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="2" y="4" width="20" height="16"/><path d="m22 7-10 5L2 7"/></svg>
+        </span>
+        <a href="mailto:nora_roemer@hotmail.com">nora_roemer@hotmail.com</a>
+      </div>
+      <div class="contact-line">
+        <span class="contact-icon" aria-hidden="true">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.13.96.36 1.9.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.91.34 1.85.57 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
+        </span>
+        <a href="tel:+32494664669">0494 66 46 69</a>
+      </div>
+    </div>
+
+    <p class="price-note">Forest, 1190 Bruxelles · FR · EN · DE</p>
+  </div>
+</section>
+
+<!-- ============ FOOTER ============ -->
+<footer class="footer" id="footer">
+  <div class="container">
+    <div>
+      <h3>Nora Römer</h3>
+      <p>Praticienne certifiée de la Méthode Rosen</p>
+    </div>
+    <div class="f-contact">
+      <p>
+        <a href="mailto:nora_roemer@hotmail.com">nora_roemer@hotmail.com</a><br>
+        <a href="tel:+32494664669">0494 66 46 69</a><br>
+        1190 Bruxelles
+      </p>
+    </div>
+    <div class="f-link">
+      <p><a href="https://methoderosen.be" target="_blank" rel="noopener noreferrer">Institut Méthode Rosen Belgique →</a></p>
+    </div>
+  </div>
+</footer>
+
+</div><!-- /.overlay-panel -->
+</main>
+
+<script>
+// Show nav once the user has almost scrolled past the hero
+const nav = document.getElementById('nav');
+const hero = document.getElementById('accueil');
+const onScroll = () => {
+  const heroBottom = hero.getBoundingClientRect().bottom;
+  nav.classList.toggle('visible', heroBottom < 80);
+};
+onScroll();
+window.addEventListener('scroll', onScroll, { passive:true });
+
+// Active nav link via IntersectionObserver
+const navAnchors = document.querySelectorAll('.nav-links a[href^="#"]:not(.btn)');
+const observed = document.querySelectorAll('#methode, #aqui, #pratique, #apropos, #rdv');
+const ioOptions = { rootMargin: '-15% 0px -70% 0px', threshold: 0 };
+const io = new IntersectionObserver(entries => {
+  entries.forEach(entry => {
+    if (!entry.isIntersecting) return;
+    const id = entry.target.id;
+    const mappedId = id === 'aqui' ? 'methode' : id;
+    navAnchors.forEach(a => a.classList.toggle('active', a.getAttribute('href') === '#' + mappedId));
+  });
+}, ioOptions);
+observed.forEach(el => io.observe(el));
+
+// Overlay panel entrance: reveal when top edge enters viewport
+const overlayPanel = document.getElementById('overlayPanel');
+const overlayIO = new IntersectionObserver(([entry]) => {
+  if (entry.isIntersecting) { overlayPanel.classList.add('revealed'); overlayIO.disconnect(); }
+}, { rootMargin: '0px 0px -8% 0px', threshold: 0 });
+overlayIO.observe(overlayPanel);
+
+// Mobile menu toggle
+const toggle = document.getElementById('navToggle');
+const links = document.getElementById('navLinks');
+toggle.addEventListener('click', () => {
+  const open = links.classList.toggle('open');
+  toggle.setAttribute('aria-expanded', open);
+  toggle.setAttribute('aria-label', open ? 'Fermer le menu' : 'Ouvrir le menu');
+});
+links.querySelectorAll('a').forEach(a => a.addEventListener('click', () => {
+  links.classList.remove('open');
+  toggle.setAttribute('aria-expanded', false);
+}));
+</script>
+
+</body>
+</html>

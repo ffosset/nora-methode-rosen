@@ -1,0 +1,28 @@
+# Open Design internal files
+.od-skills/
+*.artifact.json
+
+# Version history drafts (keep only index.html)
+nora-romer-landing*.html
+mpmobdkw-index.html
+
+# macOS
+.DS_Store
+.AppleDouble
+.LSOverride
+._*
+
+# Editor
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# Secrets / env
+.env
+.env.*
+secrets.*
+
+# Node (if a build step is ever added)
+node_modules/
+npm-debug.log*
