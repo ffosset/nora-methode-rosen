@@ -74,13 +74,18 @@ a{ color:inherit; }
   padding:0.65rem clamp(1.25rem, 5vw, 3rem);
   background:rgba(247,244,234,0.92);
   backdrop-filter:blur(10px);
-  box-shadow:0 1px 0 rgba(56,37,71,0.08);
   width:100%;
   opacity:0; transform:translateY(-100%); pointer-events:none;
   transition:opacity .4s ease, transform .4s ease;
 }
 .nav.visible{
   opacity:1; transform:translateY(0); pointer-events:auto;
+}
+/* hand-drawn baseline along the nav's lower edge — fades in with the bar */
+.nav::after{
+  content:""; position:absolute; left:0; right:0; bottom:0; height:7px;
+  background:var(--hand-line) no-repeat center / 100% 100%;
+  opacity:.5; pointer-events:none;
 }
 .logo-slot{
   display:flex; align-items:center;
@@ -186,6 +191,22 @@ a{ color:inherit; }
   transition:clip-path 1.1s ease;
 }
 .divider.drawn{ clip-path:inset(0 0 0 0); }
+
+/* ---------- SCROLL REVEALS (progressive enhancement) ----------
+   Hidden state applies ONLY when JS adds .js-reveal to <html> AND motion is
+   allowed. No JS or reduced-motion → content is fully visible by default.
+   .reveal = one element · .reveal-group = stagger its direct children. */
+@media (prefers-reduced-motion: no-preference){
+  html.js-reveal .reveal,
+  html.js-reveal .reveal-group > *{
+    opacity:0; transform:translateY(12px);
+    transition:opacity .45s ease-out, transform .45s ease-out;
+  }
+  html.js-reveal .reveal.is-visible,
+  html.js-reveal .reveal-group.is-visible > *{
+    opacity:1; transform:none;
+  }
+}
 
 .eyebrow{
   font-family:var(--font-body); font-size:.78rem; font-weight:600;
@@ -328,6 +349,15 @@ a{ color:inherit; }
   .footer .container{ flex-direction:column; }
 }
 </style>
+<script>
+  /* Enable scroll-reveal hidden states before first paint (no flash of unstyled
+     content). Only when IntersectionObserver exists and motion is allowed —
+     otherwise the page stays fully visible with no hidden elements. */
+  if ('IntersectionObserver' in window &&
+      !window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+    document.documentElement.classList.add('js-reveal');
+  }
+</script>
 </head>
 <body>
 
@@ -379,7 +409,7 @@ a{ color:inherit; }
 <section class="section" id="methode">
   <div class="container">
     <div class="divider" aria-hidden="true"></div>
-    <div class="feature">
+    <div class="feature reveal-group">
       <div class="f-media">
         <img src="rosen-peau.jpg" alt="Toucher attentif sur le corps — Méthode Rosen">
       </div>
@@ -398,7 +428,7 @@ a{ color:inherit; }
 <section class="section" id="aqui">
   <div class="container">
     <div class="divider" aria-hidden="true"></div>
-    <div class="feature">
+    <div class="feature reveal-group">
       <div class="f-media">
         <img src="rosen-corps.jpg" alt="Séance de Méthode Rosen — praticienne au travail">
       </div>
@@ -409,7 +439,7 @@ a{ color:inherit; }
       </div>
     </div>
 
-    <p class="closure">La Méthode Rosen s'adresse à celles et ceux qui sentent qu'il est temps d'écouter autrement.</p>
+    <p class="closure reveal">La Méthode Rosen s'adresse à celles et ceux qui sentent qu'il est temps d'écouter autrement.</p>
   </div>
 </section>
 
@@ -417,7 +447,7 @@ a{ color:inherit; }
 <section class="section" id="pratique">
   <div class="container">
     <div class="divider" aria-hidden="true"></div>
-    <div class="feature">
+    <div class="feature reveal-group">
       <div class="p-img p-1">
         <img src="marion-rosen.jpg" alt="Travail corporel sur table — Méthode Rosen">
       </div>
@@ -438,7 +468,7 @@ a{ color:inherit; }
 <section class="section" id="apropos">
   <div class="container">
     <div class="divider" aria-hidden="true"></div>
-    <div class="feature">
+    <div class="feature reveal-group">
       <div class="f-media">
         <img src="nora.jpg" alt="Portrait de Nora Römer">
       </div>
@@ -545,6 +575,27 @@ const dividerIO = new IntersectionObserver((entries) => {
   });
 }, { rootMargin: '0px 0px -15% 0px', threshold: 0 });
 dividers.forEach(d => dividerIO.observe(d));
+
+// Scroll reveals — one observer drives both [.reveal] and staggered [.reveal-group].
+// .js-reveal is set in <head> only when motion is allowed + IO is supported.
+if (document.documentElement.classList.contains('js-reveal')) {
+  // stagger the direct children of each group by ~70ms
+  document.querySelectorAll('.reveal-group').forEach(group => {
+    Array.from(group.children).forEach((child, i) => {
+      child.style.transitionDelay = (i * 70) + 'ms';
+    });
+  });
+  const revealEls = document.querySelectorAll('.reveal, .reveal-group');
+  const revealIO = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        entry.target.classList.add('is-visible');
+        revealIO.unobserve(entry.target);
+      }
+    });
+  }, { threshold: 0.15 });
+  revealEls.forEach(el => revealIO.observe(el));
+}
 
 // Mobile menu toggle
 const toggle = document.getElementById('navToggle');
