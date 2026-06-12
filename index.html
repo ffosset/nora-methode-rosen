@@ -231,8 +231,9 @@ a{ color:inherit; }
   box-shadow:0 26px 60px -30px rgba(56,37,71,0.45);
 }
 
-/* La Méthode Rosen — small intimate photo upper-left · text right */
+/* La Méthode Rosen — tall portrait crop upper-left · text right */
 #methode .f-media{ grid-column:1 / 6; grid-row:1; align-self:start; }
+#methode .f-media img{ aspect-ratio:3 / 4; object-fit:cover; }
 #methode .f-text { grid-column:7 / 13; grid-row:1; align-self:center; }
 
 /* À qui s'adresse — wide photo bleeding off the right edge · text below-left */
@@ -263,7 +264,7 @@ a{ color:inherit; }
 
 /* À propos — portrait left · text right */
 #apropos .f-media{ grid-column:2 / 6; grid-row:1; align-self:center; }
-#apropos .f-media img{ max-width:340px; }     /* source is 348px wide — keep it crisp */
+#apropos .f-media img{ max-width:340px; aspect-ratio:4 / 5; object-fit:cover; }  /* portrait crop, centred on face */
 #apropos .f-text { grid-column:7 / 13; grid-row:1; align-self:center; }
 
 .closure{
@@ -408,7 +409,6 @@ a{ color:inherit; }
 <!-- ============ LA MÉTHODE ROSEN ============ -->
 <section class="section" id="methode">
   <div class="container">
-    <div class="divider" aria-hidden="true"></div>
     <div class="feature reveal-group">
       <div class="f-media">
         <img src="rosen-peau.jpg" alt="Toucher attentif sur le corps — Méthode Rosen">
