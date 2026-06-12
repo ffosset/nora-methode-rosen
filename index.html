@@ -268,13 +268,10 @@ a{ color:inherit; }
 /* ---------- OVERLAY PANEL (rdv + footer slide on top) ---------- */
 .overlay-panel{
   position:relative; z-index:10;
-  /* the closing block (CTA + footer) is now a framed blue card floating on the
-     cream canvas — inset by the same margin as the hero frame, with a diagonal
-     top edge that echoes the section separators (rising left→right). */
+  /* full-width blue closing block (CTA + footer) */
   background:var(--blue);
-  margin:clamp(1.25rem, 3.5vw, 2.75rem);
-  clip-path:polygon(0 clamp(26px, 3.5vw, 52px), 100% 0, 100% 100%, 0 100%);
-  filter:drop-shadow(0 22px 46px rgba(56,37,71,0.18));
+  /* casts a shadow upward so it reads as a sheet lifting over the content above */
+  box-shadow:0 -32px 64px -16px rgba(56,37,71,0.13);
   /* entrance animation: panel starts 56px below and fades in */
   transform:translateY(56px); opacity:0;
   transition:transform .8s cubic-bezier(.22,.68,0,1.1), opacity .65s ease;
