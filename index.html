@@ -265,20 +265,23 @@ a{ color:inherit; }
 
 
 
-/* ---------- OVERLAY PANEL (rdv + footer slide on top) ---------- */
+/* ---------- OVERLAY PANEL (rdv + footer) — slides up OVER the pinned #apropos ---------- */
 .overlay-panel{
-  position:relative; z-index:10;
-  /* full-width blue closing block (CTA + footer) */
+  position:relative; z-index:10;   /* higher than #apropos so it scrolls up over it */
+  /* full-width blue closing block (CTA + footer). The blue background, the soft
+     top shadow and the rounded top corners give the rising edge a clear, legible
+     lip as it covers the pinned section below. */
   background:var(--blue);
-  /* casts a shadow upward so it reads as a sheet lifting over the content above */
-  box-shadow:0 -32px 64px -16px rgba(56,37,71,0.13);
-  /* entrance animation: panel starts 56px below and fades in */
-  transform:translateY(56px); opacity:0;
-  transition:transform .8s cubic-bezier(.22,.68,0,1.1), opacity .65s ease;
+  border-radius:clamp(14px,2vw,22px) clamp(14px,2vw,22px) 0 0;
+  box-shadow:0 -14px 36px -8px rgba(56,37,71,0.22);
 }
-.overlay-panel.revealed{ transform:translateY(0); opacity:1; }
-@media (prefers-reduced-motion: reduce){
-  .overlay-panel{ transform:none; opacity:1; }
+
+/* ---------- OVERLAP REVEAL ----------
+   #apropos pins at the top while the booking/footer panel rises up and over it.
+   Pure CSS sticky — native scroll is untouched. Enabled only on wider viewports
+   with motion allowed; mobile and reduced-motion fall back to normal stacked flow. */
+@media (min-width:821px) and (prefers-reduced-motion:no-preference){
+  #apropos{ position:sticky; top:0; background:var(--cream); }
 }
 
 /* ---------- BOOKING ---------- */
@@ -544,12 +547,8 @@ const io = new IntersectionObserver(entries => {
 }, ioOptions);
 observed.forEach(el => io.observe(el));
 
-// Overlay panel entrance: reveal when top edge enters viewport
-const overlayPanel = document.getElementById('overlayPanel');
-const overlayIO = new IntersectionObserver(([entry]) => {
-  if (entry.isIntersecting) { overlayPanel.classList.add('revealed'); overlayIO.disconnect(); }
-}, { rootMargin: '0px 0px -8% 0px', threshold: 0 });
-overlayIO.observe(overlayPanel);
+// (The closing "overlay panel" entrance is now handled purely with CSS sticky —
+//  #apropos pins and the booking/footer panel rises over it. No JS needed.)
 
 // Hand-drawn section dividers: draw themselves in when scrolled into view
 const dividers = document.querySelectorAll('.divider');
