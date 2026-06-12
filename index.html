@@ -13,25 +13,25 @@
 <meta property="og:title" content="Méthode Rosen — Nora Römer">
 <meta property="og:description" content="Prendre conscience de ce que notre corps sait déjà. Une pratique psychocorporelle par le toucher et le ressenti.">
 
-<!-- Fonts: Fraunces (display serif) + Work Sans (body) -->
+<!-- Fonts: American Typewriter (display, system on macOS/iOS) + Work Sans (body) -->
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,500;0,9..144,600;1,9..144,400&family=Work+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Work+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
 
 <style>
 /* ============================================================
    BRAND SYSTEM
-   Cream = canvas · Plum = structure & text · Coral = "do this"
+   Cream = canvas · Plum = structure & text · Blue = "do this"
    ============================================================ */
 :root{
   --cream:    #F7F4EA;
   --plum:     #382547;
-  --coral:    #FF8C61;
+  --blue:    #457eac;
   --plum-soft:#5a4668;
   --cream-2:  #EFE9D8;
-  --coral-dim:#e9805a;
+  --blue-dim:#3a6b94;
 
-  --font-display: "Fraunces", "Newsreader", Georgia, serif;
+  --font-display: "American Typewriter", Rockwell, Georgia, serif;
   --font-body: "Work Sans", system-ui, sans-serif;
 
   --maxw: 1180px;
@@ -57,7 +57,7 @@ body{
   font-size:clamp(1rem, 0.6vw + 0.9rem, 1.125rem);
 }
 
-h1,h2,h3{ font-family:var(--font-display); font-weight:500; line-height:1.12; letter-spacing:-0.01em; }
+h1,h2,h3{ font-family:var(--font-display); font-weight:600; line-height:1.12; letter-spacing:-0.01em; }
 
 .container{ width:100%; max-width:var(--maxw); margin-inline:auto; padding-inline:clamp(1.25rem, 5vw, 3rem); }
 
@@ -93,7 +93,7 @@ a{ color:inherit; }
 }
 .nav-links a::after{
   content:""; position:absolute; left:0; bottom:-2px; height:1.5px; width:0;
-  background:var(--coral); transition:width .3s ease;
+  background:var(--blue); transition:width .3s ease;
 }
 .nav-links a:hover::after,
 .nav-links a.active::after{ width:100%; }
@@ -105,59 +105,79 @@ a{ color:inherit; }
   cursor:pointer; border:1.5px solid transparent; transition:all .25s ease;
   white-space:nowrap;
 }
-.btn-primary{ background:var(--coral); color:#fff; }
-.btn-primary:hover{ background:var(--coral-dim); transform:translateY(-1px); }
+.btn-primary{ background:var(--blue); color:#fff; }
+.btn-primary:hover{ background:var(--blue-dim); transform:translateY(-1px); }
 .btn-ghost{ background:transparent; color:var(--plum); border-color:var(--plum); }
 .btn-ghost:hover{ background:var(--plum); color:var(--cream); }
-.nav .btn-primary{ box-shadow:0 6px 18px rgba(255,140,97,0.28); }
+.nav .btn-primary{ box-shadow:0 6px 18px rgba(69,126,172,0.28); }
 
 .nav-toggle{ display:none; }
 
 /* ---------- HERO ---------- */
+/* Equal frame of background photo on all four sides, identical on every screen */
 .hero{
-  position:relative; min-height:88vh;
-  display:flex; align-items:center;
-  padding:var(--section-pad) 0;
+  position:relative; min-height:100vh;
+  display:flex;
+  padding:clamp(1.25rem, 3.5vw, 2.75rem);
   overflow:hidden;
 }
 .hero-bg{
   position:absolute; inset:0; z-index:0;
-  background-image: url('mpmqjj7x-hero.jpg');
+  background-image: url('prairie-hero.jpg');
   background-size:cover; background-position:center;
 }
-.hero .container{ position:relative; z-index:2; display:flex; flex-direction:column; align-items:center; }
 .hero-panel{
+  position:relative; z-index:2;
+  width:100%;
   background:var(--cream); color:var(--plum);
-  padding:clamp(2.5rem, 5vw, 4.5rem);
-  max-width:800px;
-  margin-inline:auto;
+  padding:clamp(1.75rem, 4vw, 3.5rem);
   box-shadow:0 30px 80px -20px rgba(56,37,71,0.35);
-  text-align:center;
+  display:flex; flex-direction:column;
 }
-.hero-panel h1{
-  font-size:clamp(2rem, 4.5vw, 3.4rem);
-  margin-bottom:1.25rem;
+/* Menu inside the hero panel: logo left, links right */
+.hero-nav{
+  display:flex; align-items:center; justify-content:space-between;
+  gap:1.5rem; flex-wrap:wrap;
+}
+.hero-nav .logo-slot img{ height:48px; width:auto; display:block; }
+.hero-nav-links{
+  display:flex; align-items:center; gap:clamp(1.25rem, 3vw, 2.75rem);
+  list-style:none;
+}
+.hero-nav-links a{
+  text-decoration:none; font-size:1rem; font-weight:500; color:var(--plum);
+  position:relative; padding-block:.25rem; white-space:nowrap;
+}
+.hero-nav-links a::after{
+  content:""; position:absolute; left:0; bottom:-2px; height:1.5px; width:0;
+  background:var(--blue); transition:width .3s ease;
+}
+.hero-nav-links a:hover::after,
+.hero-nav-links a.active::after{ width:100%; }
+/* Main hero text, left-aligned, centered in the space below the menu */
+.hero-content{
+  flex:1;
+  display:flex; flex-direction:column; justify-content:center;
+  max-width:760px;
+  padding-block:clamp(2.5rem, 8vh, 6rem);
+}
+.hero-content h1{
+  font-size:clamp(2.2rem, 5vw, 3.6rem);
+  margin-bottom:1.5rem;
   font-weight:500;
 }
-.hero-panel p{ font-size:1.075rem; color:var(--plum-soft); margin-bottom:2rem; max-width:52ch; margin-inline:auto; }
-.hero-actions{ display:flex; flex-wrap:wrap; gap:.9rem; justify-content:center; }
-.hero .btn-ghost{ color:var(--plum); border-color:rgba(56,37,71,.35); }
-.hero .btn-ghost:hover{ background:var(--plum); color:var(--cream); border-color:var(--plum); }
-.scroll-cue{
-  position:absolute; left:50%; bottom:1.75rem; transform:translateX(-50%);
-  z-index:2; color:var(--coral); animation:bob 2.4s ease-in-out infinite;
-}
-@keyframes bob{ 0%,100%{ transform:translate(-50%,0); } 50%{ transform:translate(-50%,8px); } }
+.hero-content p{ font-size:1.075rem; color:var(--plum-soft); margin-bottom:2rem; max-width:52ch; }
+.hero-actions{ display:flex; flex-wrap:wrap; gap:.9rem; }
 
 /* ---------- SECTION SHELL ---------- */
 .section{ padding:var(--section-pad) 0; }
-.section.tint{ background:var(--cream-2); }
+.section.tint{ background:var(--cream); }
 .section.fill{ background:var(--plum); color:var(--cream); }
 .section.fill h2, .section.fill h3{ color:var(--cream); }
 
 .eyebrow{
   font-family:var(--font-body); font-size:.78rem; font-weight:600;
-  letter-spacing:.16em; text-transform:uppercase; color:var(--coral);
+  letter-spacing:.16em; text-transform:uppercase; color:var(--blue);
   margin-bottom:1rem; display:block;
 }
 .section-title{ font-size:clamp(1.7rem, 3.4vw, 2.6rem); margin-bottom:1.5rem; max-width:18ch; }
@@ -175,7 +195,7 @@ a{ color:inherit; }
 /* image placeholders */
 .media{
   position:relative; width:100%; overflow:hidden;
-  background:var(--cream-2);
+  background:var(--cream);
   border:1px solid rgba(56,37,71,0.08);
   aspect-ratio:4 / 5;
   display:grid; place-items:center;
@@ -183,7 +203,7 @@ a{ color:inherit; }
 .media.wide{ aspect-ratio:4 / 3; }
 .media::before{
   content:""; position:absolute; inset:0;
-  background:radial-gradient(100% 100% at 30% 20%, rgba(255,140,97,.10), transparent 60%),
+  background:radial-gradient(100% 100% at 30% 20%, rgba(69,126,172,.10), transparent 60%),
              linear-gradient(135deg, rgba(56,37,71,.05), rgba(56,37,71,0));
 }
 .media .ph-label{
@@ -199,8 +219,8 @@ a{ color:inherit; }
   gap:1.25rem; margin-top:clamp(2.5rem,5vw,4rem);
 }
 .quote-card{
-  background:var(--cream-2); padding:1.5rem 1.6rem;
-  border-left:3px solid var(--coral);
+  background:var(--cream); padding:1.5rem 1.6rem;
+  border-left:3px solid var(--blue);
   box-shadow:0 8px 24px -16px rgba(56,37,71,0.4);
 }
 .quote-card .q{ font-family:var(--font-display); font-style:italic; font-size:1.1rem; color:var(--plum); margin-bottom:.45rem; }
@@ -240,9 +260,9 @@ a{ color:inherit; }
 }
 
 /* ---------- BOOKING ---------- */
-.booking{ background:#fff; text-align:center; }
-.booking .section-title{ margin-inline:auto; max-width:none; color:var(--plum); }
-.booking-detail{ max-width:54ch; margin:0 auto 2.5rem; color:var(--plum-soft); }
+.booking{ background:var(--blue); text-align:center; }
+.booking .section-title{ margin-inline:auto; max-width:none; color:var(--cream); }
+.booking-detail{ max-width:54ch; margin:0 auto 2.5rem; color:rgba(247,244,234,.85); }
 .contact-card{
   display:inline-flex; flex-direction:column; gap:1rem;
   background:var(--plum);
@@ -250,22 +270,22 @@ a{ color:inherit; }
   box-shadow:0 8px 32px -12px rgba(56,37,71,0.3);
 }
 .contact-line{ display:flex; align-items:center; justify-content:center; gap:.75rem; font-size:1.15rem; color:var(--cream); }
-.contact-line a{ color:var(--coral); text-decoration:none; font-weight:500; border-bottom:1.5px solid var(--coral); padding-bottom:1px; }
+.contact-line a{ color:var(--cream); text-decoration:none; font-weight:500; border-bottom:1.5px solid var(--cream); padding-bottom:1px; }
 .contact-line a:hover{ color:#fff; border-color:#fff; }
 .contact-icon{ color:var(--cream); }
 .price-note{ font-size:.95rem; color:rgba(247,244,234,.65); margin-top:1.5rem; }
 /* override .section.fill colours that no longer apply here */
-#rdv{ background:#fff; color:var(--plum); }
-#rdv .eyebrow{ color:var(--coral); }
+#rdv{ background:var(--blue); color:var(--cream); }
+#rdv .eyebrow{ color:var(--cream); }
 
 /* ---------- FOOTER ---------- */
-.footer{ background:#fff; color:var(--plum); padding:clamp(3rem,6vw,4.5rem) 0; border-top:1px solid var(--border,var(--cream-2)); }
+.footer{ background:var(--cream); color:var(--plum); padding:clamp(3rem,6vw,4.5rem) 0; border-top:1px solid var(--cream-2); }
 .footer .container{ display:flex; flex-wrap:wrap; justify-content:space-between; gap:2rem; }
 .footer h3{ font-size:1.4rem; margin-bottom:.5rem; color:var(--plum); }
 .footer a{ color:var(--plum); }
 .footer .f-contact a{ text-decoration:none; border-bottom:1px solid rgba(56,37,71,.2); }
-.footer .f-contact a:hover{ border-color:var(--coral); color:var(--coral); }
-.footer .f-link a{ color:var(--coral); text-decoration:none; font-weight:500; }
+.footer .f-contact a:hover{ border-color:var(--blue); color:var(--blue); }
+.footer .f-link a{ color:var(--blue); text-decoration:none; font-weight:500; }
 .footer .f-link a:hover{ text-decoration:underline; }
 .footer p{ color:var(--plum-soft); font-size:.95rem; line-height:1.9; }
 
@@ -284,6 +304,11 @@ a{ color:inherit; }
   }
   .nav .btn-primary{ display:none; }
   .nav-links .btn-primary{ display:inline-flex; }
+
+  /* hero menu: links wrap under the logo and shrink to fit */
+  .hero-nav{ gap:1rem; }
+  .hero-nav-links{ gap:1rem 1.25rem; flex-wrap:wrap; }
+  .hero-nav-links a{ font-size:.9rem; }
 
   .row{ grid-template-columns:1fr; gap:2rem; }
   .row.reverse{ grid-template-columns:1fr; }
@@ -317,21 +342,26 @@ a{ color:inherit; }
 
 <!-- ============ HERO ============ -->
 <header class="hero" id="accueil">
-  <div class="hero-bg" role="img" aria-label="Photo de forêt en arrière-plan"></div>
-  <div class="container">
-    <div class="hero-panel">
-      <img src="mpmp7v4z-logo-site.png" alt="Nora Römer — Méthode Rosen" style="height:56px;width:auto;display:block;margin:0 auto 1.5rem;">
+  <div class="hero-bg" role="img" aria-label="Prairie ensoleillée en arrière-plan"></div>
+  <div class="hero-panel">
+    <nav class="hero-nav">
+      <a href="#accueil" class="logo-slot" aria-label="Accueil — Nora Römer, Méthode Rosen">
+        <img src="mpmp7v4z-logo-site.png" alt="Nora Römer — Méthode Rosen">
+      </a>
+      <ul class="hero-nav-links">
+        <li><a href="#methode">La Méthode Rosen</a></li>
+        <li><a href="#pratique">En pratique</a></li>
+        <li><a href="#apropos">À propos</a></li>
+      </ul>
+    </nav>
+    <div class="hero-content">
       <h1>Prendre conscience de ce que notre corps sait déjà.</h1>
-      <p>La Méthode Rosen est une pratique psychocorporelle qui fait le lien entre le corps et les émotions. Par le toucher et le ressenti, elle révèle nos tensions musculaires et les schémas qui se cachent derrière.</p>
+      <p>Je m'appelle Nora Römer et je suis praticienne de la Méthode Rosen. La Méthode Rosen est une pratique psychocorporelle qui fait le lien entre le corps et les émotions. Par le toucher et le ressenti, elle révèle nos tensions musculaires et les schémas qui se cachent derrière.</p>
       <div class="hero-actions">
         <a href="#rdv" class="btn btn-primary">Prendre rendez-vous</a>
-        <a href="#methode" class="btn btn-ghost">En savoir plus</a>
       </div>
     </div>
   </div>
-  <a href="#methode" class="scroll-cue" aria-label="Défiler vers le bas">
-    <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="12" y1="5" x2="12" y2="19"/><polyline points="19 12 12 19 5 12"/></svg>
-  </a>
 </header>
 
 <main>
