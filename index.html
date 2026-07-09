@@ -5,7 +5,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Méthode Rosen — Nora Römer · Praticienne à Bruxelles</title>
-<meta name="description" content="La Méthode Rosen est une pratique psychocorporelle qui fait le lien entre le corps et les émotions. Séances avec Nora Römer, praticienne certifiée à Forest, Bruxelles.">
+<meta name="description" content="La Méthode Rosen est une pratique psychocorporelle qui fait le lien entre le corps et les émotions. Séances avec Nora Römer, praticienne interne à Forest, Bruxelles.">
 
 <!-- Open Graph -->
 <meta property="og:type" content="website">
@@ -119,6 +119,11 @@ a{ color:inherit; }
 .btn-ghost{ background:transparent; color:var(--plum); border-color:var(--plum); }
 .btn-ghost:hover{ background:var(--plum); color:var(--cream); }
 .nav .btn-primary{ box-shadow:0 6px 18px rgba(69,126,172,0.28); }
+/* Nav CTA: white label, taller (matching the hero button), no hand-drawn underline.
+   The .nav-links a rules would otherwise override the button's colour and squash its
+   vertical padding, so restate them here with higher specificity. */
+.nav-links .btn-primary{ color:#fff; padding:.7rem 1.4rem; }
+.nav-links .btn-primary::after{ content:none; }
 
 .nav-toggle{ display:none; }
 
@@ -188,6 +193,12 @@ a{ color:inherit; }
 }
 .divider.drawn{ clip-path:inset(0 0 0 0); }
 
+/* Even rhythm: #pratique and #apropos open with a divider, which would otherwise
+   add its height + margin on top of the section padding and make those gaps larger
+   than the divider-less ones. Pull the top padding back by the divider's footprint
+   so every gap between sections is the same. */
+#pratique, #apropos{ padding-top: calc(var(--section-pad) - clamp(2.5rem,6vw,4.5rem) - 10px); }
+
 /* ---------- SCROLL REVEALS (progressive enhancement) ----------
    Hidden state applies ONLY when JS adds .js-reveal to <html> AND motion is
    allowed. No JS or reduced-motion → content is fully visible by default.
@@ -224,13 +235,15 @@ a{ color:inherit; }
 .f-text p:last-child{ margin-bottom:0; }
 .f-media img{
   display:block; width:100%; height:auto;
-  box-shadow:0 26px 60px -30px rgba(56,37,71,0.45);
 }
 
 /* La Méthode Rosen — tall portrait crop upper-left · text right */
 #methode .f-media{ grid-column:1 / 6; grid-row:1; align-self:start; }
 #methode .f-media img{ aspect-ratio:3 / 4; object-fit:cover; }
-#methode .f-text { grid-column:7 / 13; grid-row:1; align-self:center; }
+/* Diagonal offset: the text block begins level with the middle of the photo.
+   The photo spans 5 of 12 columns at 3:4, so half its height ≈ 24vw up to the
+   point the container caps out. Reset to 0 on mobile via the .feature .f-text rule. */
+#methode .f-text { grid-column:7 / 13; grid-row:1; align-self:start; margin-top:clamp(2rem, 24vw, 300px); }
 
 /* À qui s'adresse — wide photo bleeding off the right edge · text below-left */
 #aqui{ overflow-x:clip; }                       /* contain the right-edge bleed (no h-scroll) */
@@ -240,6 +253,7 @@ a{ color:inherit; }
   margin-left:auto;                             /* push the photo to the right… */
   margin-right:calc(50% - 50vw);                /* …and let it run off the viewport edge */
 }
+#aqui .f-media img{ aspect-ratio:16 / 9; object-fit:cover; }   /* shorter, wider crop */
 #aqui .f-text{ max-width:54ch; margin-top:clamp(1.5rem,4vw,3rem); }
 
 /* En pratique — staggered collage of three portraits · text lower-right */
@@ -248,7 +262,7 @@ a{ color:inherit; }
 #pratique .p-2{ grid-column:5 / 8; margin-top:clamp(2rem,5vw,4rem); }
 #pratique .p-3{ grid-column:2 / 5; grid-row:2; margin-top:clamp(1.25rem,3vw,2.25rem); }
 #pratique .f-text{ grid-column:7 / 13; grid-row:2; align-self:end; max-width:42ch; }
-#pratique .p-img img{ display:block; width:100%; height:auto; box-shadow:0 26px 60px -30px rgba(56,37,71,0.45); }
+#pratique .p-img img{ display:block; width:100%; height:auto; }
 /* temporary placeholders for the two photos still to come */
 .ph{
   aspect-ratio:255 / 360;
@@ -268,11 +282,10 @@ a{ color:inherit; }
 /* ---------- OVERLAY PANEL (rdv + footer) — slides up OVER the pinned #apropos ---------- */
 .overlay-panel{
   position:relative; z-index:10;   /* higher than #apropos so it scrolls up over it */
-  /* full-width blue closing block (CTA + footer). The blue background, the soft
-     top shadow and the rounded top corners give the rising edge a clear, legible
-     lip as it covers the pinned section below. */
+  /* full-width blue closing block (CTA + footer). The blue background and the soft
+     top shadow give the rising edge a clear, legible lip as it covers the pinned
+     section below. */
   background:var(--blue);
-  border-radius:clamp(14px,2vw,22px) clamp(14px,2vw,22px) 0 0;
   box-shadow:0 -14px 36px -8px rgba(56,37,71,0.22);
 }
 
@@ -285,19 +298,23 @@ a{ color:inherit; }
 }
 
 /* ---------- BOOKING ---------- */
-.booking{ background:transparent; text-align:left; }
-.booking .section-title{ max-width:16ch; color:var(--cream); }
-.booking-detail{ max-width:48ch; margin:0 0 2.5rem; color:rgba(247,244,234,.85); }
+.booking{ background:transparent; text-align:center; }
+.booking .section-title{ max-width:20ch; margin-inline:auto; color:var(--cream); }
+.booking-detail{ max-width:48ch; margin:0 auto 2.5rem; color:rgba(247,244,234,.85); }
 .contact-card{
-  display:flex; flex-direction:column; align-items:flex-start; gap:1rem;
+  display:flex; flex-direction:column; align-items:center; gap:1rem;
 }
-.contact-line{ display:flex; align-items:center; justify-content:flex-start; gap:.75rem; font-size:1.15rem; color:var(--cream); }
-.contact-line a{ color:var(--cream); text-decoration:none; font-weight:500; border-bottom:1.5px solid var(--cream); padding-bottom:1px; }
-.contact-line a:hover{ color:#fff; border-color:#fff; }
+.contact-line{ display:flex; align-items:center; justify-content:center; gap:.75rem; font-size:1.15rem; color:var(--cream); }
+.contact-line a{
+  color:var(--cream); text-decoration:none; font-weight:500;
+  border-bottom:1.5px solid var(--cream); padding-bottom:1px;
+  transition:color .2s ease, border-color .2s ease, opacity .2s ease;
+}
+.contact-line a:hover{ color:#fff; border-color:#fff; opacity:.85; }
 .contact-icon{ color:var(--cream); }
 /* override .section.fill colours that no longer apply here */
 #rdv{ background:transparent; color:var(--cream); }
-#rdv .eyebrow{ color:var(--plum); }
+#rdv .eyebrow{ color:var(--cream); }
 
 /* ---------- FOOTER ---------- */
 .footer{ background:transparent; color:var(--cream); padding:clamp(3rem,6vw,4.5rem) 0; border-top:1px solid rgba(247,244,234,.22); }
@@ -368,7 +385,7 @@ a{ color:inherit; }
     <li><a href="#methode">La méthode</a></li>
     <li><a href="#pratique">En pratique</a></li>
     <li><a href="#apropos">À propos</a></li>
-    <li><a href="#rdv" class="btn btn-primary">Prendre rendez-vous</a></li>
+    <li><a href="#rdv" class="btn btn-primary">Prendre contact</a></li>
   </ul>
 </nav>
 
@@ -388,9 +405,9 @@ a{ color:inherit; }
     </nav>
     <div class="hero-content">
       <h1>Prendre conscience de ce que notre corps sait déjà.</h1>
-      <p>Je m'appelle Nora Römer et je suis praticienne de la Méthode Rosen. La Méthode Rosen est une pratique psychocorporelle qui fait le lien entre le corps et les émotions. Par le toucher et le ressenti, elle révèle nos tensions musculaires et les schémas qui se cachent derrière.</p>
+      <p>La Méthode Rosen est une pratique psychocorporelle qui fait le lien entre le corps et les émotions. Par le toucher, elle permet de prendre conscience de nos tensions musculaires et de ce qu'elles dissimulent. Je m'appelle Nora Römer et je suis praticienne interne de cette méthode.</p>
       <div class="hero-actions">
-        <a href="#rdv" class="btn btn-primary">Prendre rendez-vous</a>
+        <a href="#rdv" class="btn btn-primary">Prendre contact</a>
       </div>
     </div>
   </div>
@@ -407,10 +424,10 @@ a{ color:inherit; }
       </div>
       <div class="f-text prose">
         <span class="eyebrow">La Méthode Rosen</span>
-        <h2 class="section-title">Ce que le corps porte, le corps peut le libérer.</h2>
-        <p>La Méthode Rosen part d'un constat simple : nos tensions musculaires ne sont pas que physiques. Elles portent nos émotions enfouies, ce que nous n'avons pas pu exprimer. Au fil de notre histoire, le corps développe des stratégies pour faire face — des tensions chroniques s'installent pour nous protéger, pour contrôler, ou simplement pour tenir.</p>
-        <p>Par un toucher doux et bienveillant, la Méthode Rosen crée un espace sécurisant où le corps peut, enfin, se laisser aller. La détente profonde des muscles, des fascias et de la respiration permet de relâcher ce qui était retenu — et d'éveiller une conscience plus juste de qui nous sommes vraiment.</p>
-        <p>La méthode agit sur les plans métabolique, émotionnel, comportemental et mental.</p>
+        <h2 class="section-title">Ce que le corps tient, le corps peut le relâcher.</h2>
+        <p>La Méthode Rosen part d'un constat simple : nos tensions musculaires ne sont pas uniquement physiques. Elles portent en elles des émotions retenues et des postures que nous avons dû adopter. Au fil de notre histoire, notre corps a développé des stratégies pour faire face aux événements de la vie : pour nous protéger, pour maîtriser ou pour exister tout simplement.</p>
+        <p>La Méthode Rosen fait le lien entre les tensions musculaires chroniques et notre mémoire corporelle. Elle se pratique par un toucher doux et bienveillant. Par la détente profonde des muscles, des fascias et de la respiration, elle permet de relâcher nos blocages et de prendre conscience de nos schémas de réactions inconscients. Progressivement, ce qui était retenu se libère : on retrouve plus de sécurité et de vitalité, tout en éveillant une conscience et une acceptation plus juste de qui nous sommes vraiment.</p>
+        <p>La Méthode Rosen agit sur les plans métabolique, émotionnel, comportemental et mental.</p>
       </div>
     </div>
   </div>
@@ -425,8 +442,9 @@ a{ color:inherit; }
       </div>
       <div class="f-text prose">
         <span class="eyebrow">À qui s'adresse la méthode</span>
-        <h2 class="section-title">Peut-être vous reconnaissez-vous ici…</h2>
-        <p>Vous ressentez un mal-être difficile à nommer. Vos émotions semblent inaccessibles, ou au contraire débordantes. Peut-être traversez-vous un burn-out, une anxiété persistante, ou répétez-vous les mêmes schémas sans comprendre pourquoi. Peut-être avez-vous l'impression d'être coupé(e) de votre corps — et que la parole seule ne suffit plus.</p>
+        <h2 class="section-title">Peut-être vous reconnaissez-vous ici.</h2>
+        <p>Vous ressentez un mal-être difficile à nommer. Vos émotions semblent inaccessibles, ou au contraire débordantes. Peut-être traversez-vous un burn-out, une anxiété persistante, ou répétez-vous les mêmes schémas sans comprendre pourquoi. Vous avez l'impression d'être coupé·e de votre corps, de vos sensations, et de vivre dans votre tête. Peut-être avez-vous des douleurs ou des tensions chroniques que vous ne parvenez pas à vous expliquer. La parole seule ne suffit pas, ou plus, à aller là où vous en avez besoin.</p>
+        <p>La Méthode Rosen s'adresse à celles et ceux qui sentent qu'il est temps d'écouter autrement.</p>
       </div>
     </div>
   </div>
@@ -445,9 +463,8 @@ a{ color:inherit; }
       <div class="f-text prose">
         <span class="eyebrow">En pratique</span>
         <h2 class="section-title">Un espace pour se poser, vraiment.</h2>
-        <p>Vous êtes allongé(e) sur une table de massage, couvert(e) d'un drap, dans un cadre confidentiel et bienveillant. Le drap est écarté uniquement dans les zones travaillées.</p>
-        <p>Mon travail consiste à aller à la rencontre de vos tensions musculaires — guidé(e) par la lecture du corps, l'observation de la respiration et l'échange avec vous. Ce toucher attentif accompagne la prise de conscience de ce qui se passe en vous, à votre propre rythme.</p>
-        <p>Cette présence douce et sans jugement permet parfois la transformation de ce que l'on croyait immuable.</p>
+        <p>Une séance Rosen se déroule couché·e sur une table de massage, couvert·e d'un drap, dans un cadre confidentiel et bienveillant. Le drap est écarté uniquement dans les zones travaillées.</p>
+        <p>Guidée par la lecture du corps, l'observation de la respiration et l'échange avec vous, mon travail consiste à aller à la rencontre de vos tensions musculaires. Mon toucher vous accompagne alors dans la prise de conscience de votre corps, de ses retenues et de son potentiel.</p>
       </div>
     </div>
   </div>
@@ -463,10 +480,8 @@ a{ color:inherit; }
       </div>
       <div class="f-text prose">
         <span class="eyebrow">À propos</span>
-        <h2 class="section-title">Qui suis-je ?</h2>
-        <p>Je m'appelle Nora. La Méthode Rosen m'accompagne depuis de longues années — d'abord comme pratique personnelle, avant de devenir une vocation.</p>
-        <p>Me sentant limitée par la thérapie cognitive, je me suis tournée vers le travail corporel. Ce chemin a provoqué en moi des évolutions profondes : plus de bien-être, de confiance en moi, de bienveillance envers moi-même. Ce que je croyais être une démarche de soin personnel est devenu, au fil des formations, un nouveau métier. J'ai alors décidé de lancer ma pratique en cabinet en tant que praticienne certifiée.</p>
-        <p>Parallèlement, j'ai co-fondé l'Institut Méthode Rosen Belgique avec Anne Closset, avec pour mission de transmettre cette approche et de la démocratiser en Belgique.</p>
+        <p>La Méthode Rosen m'accompagne depuis de longues années. Au départ, je me suis tournée vers le travail corporel parce que je me sentais limitée par la thérapie cognitive. Rapidement, j'ai ressenti la puissance de cette méthode et le début d'évolutions profondes qui se sont dessinées en moi.</p>
+        <p>Ce que je croyais être une démarche de soin personnel est devenu, au fil des années, un nouveau métier. J'ai alors décidé de lancer ma pratique en cabinet en tant que praticienne interne. Parallèlement à cela, j'ai co-fondé l'Institut Méthode Rosen Belgique avec Anne Closset. L'Institut a comme objectif de développer ce travail corporel en Belgique.</p>
       </div>
     </div>
   </div>
@@ -504,7 +519,7 @@ a{ color:inherit; }
   <div class="container">
     <div>
       <h3>Nora Römer</h3>
-      <p>Praticienne certifiée de la Méthode Rosen</p>
+      <p>Praticienne interne de la Méthode Rosen</p>
     </div>
     <div class="f-contact">
       <p>
