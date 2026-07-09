@@ -256,12 +256,20 @@ a{ color:inherit; }
 #aqui .f-media img{ aspect-ratio:16 / 9; object-fit:cover; }   /* shorter, wider crop */
 #aqui .f-text{ max-width:54ch; margin-top:clamp(1.5rem,4vw,3rem); }
 
-/* En pratique — staggered collage of three portraits · text lower-right */
-#pratique .p-img{ grid-row:1; }
-#pratique .p-1{ grid-column:1 / 4; align-self:start; }
-#pratique .p-2{ grid-column:5 / 8; margin-top:clamp(2rem,5vw,4rem); }
-#pratique .p-3{ grid-column:2 / 5; grid-row:2; margin-top:clamp(1.25rem,3vw,2.25rem); }
-#pratique .f-text{ grid-column:7 / 13; grid-row:2; align-self:end; max-width:42ch; }
+/* En pratique — 2×2 collage of large portraits: photos top-left, top-right and
+   bottom-left, with the text tucked into the bottom-right corner (under the
+   top-right photo, right of the bottom-left one). One gap value drives both the
+   text's top-margin and left-margin, so they read as identical. */
+#pratique .feature{
+  grid-template-columns:1fr 1fr;
+  column-gap:clamp(1.5rem,3vw,2.75rem);
+  row-gap:clamp(1.5rem,3vw,2.75rem);
+  align-items:start;
+}
+#pratique .p-1{ grid-column:1; grid-row:1; }
+#pratique .p-2{ grid-column:2; grid-row:1; }
+#pratique .p-3{ grid-column:1; grid-row:2; }
+#pratique .f-text{ grid-column:2; grid-row:2; align-self:start; max-width:none; }
 #pratique .p-img img{ display:block; width:100%; height:auto; }
 /* temporary placeholders for the two photos still to come */
 .ph{
@@ -307,10 +315,13 @@ a{ color:inherit; }
 .contact-line{ display:flex; align-items:center; justify-content:center; gap:.75rem; font-size:1.15rem; color:var(--cream); }
 .contact-line a{
   color:var(--cream); text-decoration:none; font-weight:500;
-  border-bottom:1.5px solid var(--cream); padding-bottom:1px;
-  transition:color .2s ease, border-color .2s ease, opacity .2s ease;
+  border-bottom:1.5px solid var(--cream); padding:.2rem .55rem;
+  transition:background .2s ease, color .2s ease, border-color .2s ease, transform .2s ease;
 }
-.contact-line a:hover{ color:#fff; border-color:#fff; opacity:.85; }
+.contact-line a:hover{
+  background:var(--cream); color:var(--plum);
+  border-color:var(--cream); transform:translateY(-2px);
+}
 .contact-icon{ color:var(--cream); }
 /* override .section.fill colours that no longer apply here */
 #rdv{ background:transparent; color:var(--cream); }
