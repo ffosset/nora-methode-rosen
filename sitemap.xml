@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Seule la page d'accueil est indexable (mentions-legales.html est en noindex).
+     URL de base à mettre à jour lors du passage au nom de domaine. -->
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
+        xmlns:image="http://www.google.com/schemas/sitemap-image/1.1">
+  <url>
+    <loc>https://ffosset.github.io/nora-methode-rosen/</loc>
+    <lastmod>2026-09-15</lastmod>
+    <image:image>
+      <image:loc>https://ffosset.github.io/nora-methode-rosen/cabinet.jpg</image:loc>
+      <image:title>Le cabinet de Méthode Rosen à Forest, Bruxelles</image:title>
+    </image:image>
+    <image:image>
+      <image:loc>https://ffosset.github.io/nora-methode-rosen/rosen-corps.jpg</image:loc>
+      <image:title>Séance de Méthode Rosen</image:title>
+    </image:image>
+    <image:image>
+      <image:loc>https://ffosset.github.io/nora-methode-rosen/nora.jpg</image:loc>
+      <image:title>Nora Römer, praticienne de la Méthode Rosen à Bruxelles</image:title>
+    </image:image>
+  </url>
+</urlset>

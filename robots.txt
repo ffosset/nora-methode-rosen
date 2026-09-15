@@ -1,0 +1,6 @@
+# Nora Römer — Méthode Rosen
+# URL de base à mettre à jour lors du passage au nom de domaine
+User-agent: *
+Allow: /
+
+Sitemap: https://ffosset.github.io/nora-methode-rosen/sitemap.xml

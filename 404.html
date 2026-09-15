@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<!-- Page 404 servie par GitHub Pages pour toute URL inexistante (y compris /dossier/inexistant/),
+     donc les liens relatifs partiraient du mauvais dossier. On pose la racine du site en <base> :
+     /nora-methode-rosen/ sur GitHub Pages, / en local et sur le futur nom de domaine. -->
+<script>
+  document.write('<base href="' + (location.pathname.indexOf('/nora-methode-rosen/') === 0 ? '/nora-methode-rosen/' : '/') + '">');
+</script>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Page introuvable — Nora Römer · Méthode Rosen</title>
+<meta name="description" content="Cette page n'existe pas. Retour au site de Nora Römer, praticienne de la Méthode Rosen à Bruxelles.">
+<meta name="robots" content="noindex">
+
+<!-- Favicon -->
+<link rel="icon" type="image/png" sizes="32x32" href="favicon-32.png">
+<link rel="icon" type="image/png" sizes="222x222" href="mpmp7v4z-logo-site.png">
+<link rel="apple-touch-icon" sizes="180x180" href="apple-touch-icon.png">
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Work+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+
+<style>
+:root{
+  --cream:    #FFF5EE;
+  --plum:     #382546;
+  --orange:   #864529;
+  --plum-soft:#5a4667;
+  --font-display: "Work Sans", system-ui, sans-serif;
+  --font-body: "Work Sans", system-ui, sans-serif;
+  --hand-line-steep: url("data:image/svg+xml,%3Csvg%20xmlns='http://www.w3.org/2000/svg'%20viewBox='0%200%20120%2010'%20preserveAspectRatio='none'%3E%3Cpath%20d='M1,9.2C40,6.6,80,4,119,1.4'%20fill='none'%20stroke='%23864529'%20stroke-width='2.2'%20stroke-linecap='round'/%3E%3C/svg%3E");
+}
+*{ box-sizing:border-box; margin:0; padding:0; }
+body{
+  font-family:var(--font-body); background:var(--cream); color:var(--plum);
+  line-height:1.7; -webkit-font-smoothing:antialiased;
+  font-size:clamp(1rem, 0.6vw + 0.9rem, 1.125rem);
+  min-height:100vh; display:flex; flex-direction:column;
+}
+h1,h2{ font-family:var(--font-display); font-weight:600; line-height:1.12; letter-spacing:-0.02em; }
+a{ color:inherit; }
+
+.top{ padding:1.25rem clamp(1.25rem, 5vw, 3rem); display:flex; align-items:center; justify-content:space-between; gap:1rem; }
+.top img{ height:44px; width:auto; display:block; }
+.back{ font-size:.95rem; font-weight:500; text-decoration:none; position:relative; padding-block:.25rem; }
+.back::after{
+  content:""; position:absolute; left:0; right:0; bottom:-7px; height:9px;
+  background:var(--hand-line-steep) no-repeat center / 100% 100%;
+  clip-path:inset(0 100% 0 0); transition:clip-path .4s ease;
+}
+.back:hover::after{ clip-path:inset(0 0 0 0); }
+
+main{ flex:1; width:100%; max-width:720px; margin-inline:auto; padding:clamp(3rem,8vw,6rem) clamp(1.25rem, 5vw, 3rem); }
+.eyebrow{ font-size:.78rem; font-weight:600; letter-spacing:.16em; text-transform:uppercase; color:var(--orange); display:block; margin-bottom:1rem; }
+h1{ font-size:clamp(1.7rem, 3.4vw, 2.6rem); margin-bottom:2.5rem; }
+h2{ font-size:1.25rem; margin:2.25rem 0 .6rem; }
+p{ margin-bottom:.9rem; color:var(--plum-soft); }
+p a{ color:var(--plum); text-decoration:none; border-bottom:1px solid var(--orange); }
+p a:hover{ color:var(--orange); }
+.divider{ height:10px; margin:1rem 0 .5rem; background:var(--hand-line-steep) no-repeat center / 100% 100%; max-width:120px; }
+
+.foot{ padding:2rem clamp(1.25rem, 5vw, 3rem); font-size:.8rem; color:var(--plum-soft); text-align:center; }
+.foot a{ text-decoration:none; border-bottom:1px solid rgba(56,37,70,.3); }
+.foot a:hover{ color:var(--orange); border-color:var(--orange); }
+</style>
+</head>
+<body>
+
+<header class="top">
+  <a href="index.html" aria-label="Accueil — Nora Römer, Méthode Rosen">
+    <img src="mpmp7v4z-logo-site.png" alt="Nora Römer — Méthode Rosen" width="222" height="222">
+  </a>
+  <a href="index.html" class="back">← Retour au site</a>
+</header>
+
+<main>
+  <span class="eyebrow">Erreur 404</span>
+  <h1>Cette page n'existe pas</h1>
+  <p>Le lien est peut-être erroné, ou la page a été déplacée. Tout ce qu'il y a à savoir sur la Méthode Rosen et les séances se trouve sur la page d'accueil.</p>
+  <p><a href="index.html">Retour à l'accueil</a> · <a href="index.html#rdv">Prendre contact</a></p>
+
+  <div class="divider" aria-hidden="true"></div>
+</main>
+
+<footer class="foot">
+  <p>© Nora Römer · made with care by <a href="https://fosset.co" target="_blank" rel="noopener noreferrer">fosset.co</a></p>
+</footer>
+
+</body>
+</html>
