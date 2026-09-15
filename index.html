@@ -127,6 +127,10 @@
 *{ box-sizing:border-box; margin:0; padding:0; }
 
 html{ scroll-behavior:smooth; }
+/* No sideways page scroll, ever: full-bleed elements (dividers, photo bleeds, the
+   mobile carousel) are clipped at the viewport. clip (not hidden) so html/body stay
+   non-scroll-containers and position:sticky keeps working. */
+html, body{ overflow-x:clip; }
 @media (prefers-reduced-motion: reduce){
   html{ scroll-behavior:auto; }
   *{ animation:none !important; transition:none !important; }
@@ -343,7 +347,7 @@ a{ color:inherit; }
   margin-right:calc(50% - 50vw);                /* …and let it run off the viewport edge */
 }
 #aqui .f-media img{ aspect-ratio:2 / 1; object-fit:cover; }   /* shorter, wider crop */
-#aqui .f-text{ max-width:54ch; margin-top:clamp(1.5rem,4vw,3rem); }
+#aqui .f-text{ max-width:54ch; margin-top:clamp(2.5rem,6vw,5rem); }   /* same 5rem breather as mobile */
 
 /* En pratique — 2×2 collage of large portraits: photos top-left, top-right and
    bottom-left, with the text tucked into the bottom-right corner (under the
@@ -363,11 +367,15 @@ a{ color:inherit; }
    half the photo's height (862×1280 portrait) is 1280/862/2 of that width. */
 #pratique .f-text{ grid-column:2; grid-row:2; align-self:start; max-width:none; padding-top:calc(100% * 1280 / 862 / 2); }
 #pratique .p-img img{ display:block; width:100%; height:auto; }
+/* The top-right photo drops by half its own height so its bottom edge sits one
+   row-gap above the text. The shift is on the inner <picture>, not .p-img, because
+   the scroll-reveal animates transform on .p-img; a translate leaves the grid rows
+   untouched (the space it moves into is the text's top padding). */
+#pratique .p-2 picture{ display:block; transform:translateY(50%); }
 /* The three photos sit in .p-carousel > .p-gallery so they can become a swipeable
    strip on mobile. On desktop both wrappers are box-less (display:contents) so the
    photos stay direct children of the 2×2 grid above. */
 #pratique .p-carousel, #pratique .p-gallery{ display:contents; }
-#pratique .p-dots{ display:none; }
 
 /* À propos — same layout as La Méthode Rosen: tall portrait upper-left,
    text right, starting level with the middle of the photo */
@@ -524,12 +532,24 @@ a{ color:inherit; }
   .feature .f-media{ margin-bottom:1.75rem; }
   .feature .f-media img{ margin-inline:auto; }
   .feature .f-text{ max-width:none; margin-top:0 !important; padding-top:0; }
-  #aqui .f-media{ width:auto; margin-left:0; margin-right:0; }   /* no bleed on mobile */
+  /* La Méthode Rosen: text first, photo underneath */
+  #methode .feature{ display:flex; flex-direction:column; }
+  #methode .f-media{ order:1; margin-bottom:0; margin-top:1.75rem; }
+  /* À qui s'adresse: the wide photo is dropped, text only */
+  #aqui .f-media{ display:none; }
+  #aqui .f-text{ margin-top:0; }
+  /* Stacked, the wide photo sits between two blocks of text: give it the same
+     breathing room above (previous section's bottom padding + our top padding)
+     and below (photo → eyebrow). --photo-gap never drops below the section
+     padding, so the top padding can't go negative on wider phones. */
+  #aqui{ --photo-gap:max(5rem, var(--section-pad)); padding-top:calc(var(--photo-gap) - var(--section-pad)); }
+  #aqui .f-media{ margin-bottom:var(--photo-gap); }
 
   /* ----- En pratique: swipeable photo strip -----
      The strip spans the full viewport width (bleeds past .container on both sides)
      but is padded so the first photo lines up with the text column; the following
-     photos run off the right edge of the screen, hinting that there's more. */
+     photos run off the right edge of the screen — that bleed is the only cue that
+     the strip scrolls (no dots, no arrows). */
   #pratique .p-carousel{ display:block; margin-bottom:1.75rem; }
   #pratique .p-gallery{
     display:flex; gap:.75rem;
@@ -543,13 +563,10 @@ a{ color:inherit; }
   #pratique .p-gallery::-webkit-scrollbar{ display:none; }
   #pratique .p-img{ flex:0 0 min(80vw, 360px); scroll-snap-align:start; }
   #pratique .p-img img{ aspect-ratio:3 / 4; object-fit:cover; }
-  #pratique .p-dots{ display:flex; gap:.5rem; margin-top:1rem; }
-  #pratique .p-dots span{
-    width:6px; height:6px; border-radius:50%;
-    background:color-mix(in srgb, var(--plum) 22%, transparent);
-    transition:background .3s ease, transform .3s ease;
-  }
-  #pratique .p-dots span.on{ background:var(--orange); transform:scale(1.25); }
+  #pratique .p-2 picture{ transform:none; }
+  /* the desktop "start level with the photo's middle" offset (#pratique .f-text
+     padding-top) outranks the generic .feature .f-text reset above — undo it here */
+  #pratique .f-text{ padding-top:0; }
 
   .footer .container{ flex-direction:column; }
 }
@@ -703,7 +720,6 @@ a{ color:inherit; }
         </picture>
       </div>
       </div><!-- /.p-gallery -->
-      <div class="p-dots" aria-hidden="true"><span class="on"></span><span></span><span></span></div>
       </div><!-- /.p-carousel -->
       <div class="f-text prose">
         <span class="eyebrow">En pratique</span>
@@ -795,14 +811,20 @@ a{ color:inherit; }
 </main>
 
 <script>
-// Show nav once the user has almost scrolled past the hero
+// Show nav only when the user scrolls back up while past the hero.
+// Scrolling down (or being back inside the hero) hides it again.
 const nav = document.getElementById('nav');
 const hero = document.getElementById('accueil');
+let lastY = window.scrollY;
 const onScroll = () => {
-  const heroBottom = hero.getBoundingClientRect().bottom;
-  nav.classList.toggle('visible', heroBottom < 80);
+  const y = window.scrollY;
+  const pastHero = hero.getBoundingClientRect().bottom < 80;
+  const scrollingUp = y < lastY;
+  if (!pastHero) nav.classList.remove('visible');
+  else if (scrollingUp) nav.classList.add('visible');
+  else if (y > lastY) nav.classList.remove('visible');
+  lastY = y;
 };
-onScroll();
 window.addEventListener('scroll', onScroll, { passive:true });
 
 // Active nav link via IntersectionObserver
@@ -886,20 +908,6 @@ document.addEventListener('keydown', e => {
 // growing past the mobile breakpoint while open: drop the overlay + scroll lock
 window.matchMedia('(min-width:821px)').addEventListener('change', e => { if (e.matches) setMenu(false, { restoreFocus:false }); });
 
-// En pratique carousel (mobile): keep the dot indicator in sync with the snapped photo
-const gallery = document.querySelector('#pratique .p-gallery');
-const dots = document.querySelectorAll('#pratique .p-dots span');
-if (gallery && dots.length) {
-  const slides = Array.from(gallery.querySelectorAll('.p-img'));
-  const dotIO = new IntersectionObserver(entries => {
-    entries.forEach(entry => {
-      if (!entry.isIntersecting) return;
-      const i = slides.indexOf(entry.target);
-      dots.forEach((d, j) => d.classList.toggle('on', j === i));
-    });
-  }, { root: gallery, threshold: 0.6 });
-  slides.forEach(s => dotIO.observe(s));
-}
 </script>
 
 </body>
