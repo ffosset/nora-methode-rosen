@@ -4,18 +4,18 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
         xmlns:image="http://www.google.com/schemas/sitemap-image/1.1">
   <url>
-    <loc>https://ffosset.github.io/nora-methode-rosen/</loc>
+    <loc>https://noraromer.be/</loc>
     <lastmod>2026-09-15</lastmod>
     <image:image>
-      <image:loc>https://ffosset.github.io/nora-methode-rosen/images/cabinet.jpg</image:loc>
+      <image:loc>https://noraromer.be/images/cabinet.jpg</image:loc>
       <image:title>Le cabinet de Méthode Rosen à Forest, Bruxelles</image:title>
     </image:image>
     <image:image>
-      <image:loc>https://ffosset.github.io/nora-methode-rosen/images/rosen-corps.jpg</image:loc>
+      <image:loc>https://noraromer.be/images/rosen-corps.jpg</image:loc>
       <image:title>Séance de Méthode Rosen</image:title>
     </image:image>
     <image:image>
-      <image:loc>https://ffosset.github.io/nora-methode-rosen/images/nora.jpg</image:loc>
+      <image:loc>https://noraromer.be/images/nora.jpg</image:loc>
       <image:title>Nora Römer, praticienne de la Méthode Rosen à Bruxelles</image:title>
     </image:image>
   </url>

@@ -3,4 +3,4 @@
 User-agent: *
 Allow: /
 
-Sitemap: https://ffosset.github.io/nora-methode-rosen/sitemap.xml
+Sitemap: https://noraromer.be/sitemap.xml

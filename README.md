@@ -2,7 +2,7 @@
 
 Site vitrine de Nora Römer, praticienne de la Méthode Rosen à Forest (Bruxelles).
 
-En ligne : https://ffosset.github.io/nora-methode-rosen/
+En ligne : https://noraromer.be/
 
 ## Structure
 
